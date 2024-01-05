@@ -113,3 +113,12 @@
       (error "Not visiting a file")
    )
 )
+
+;; Advised buffer switching 
+;; TODO: Try to do this with a hook?
+(defadvice switch-to-buffer (before existing-buffer activate compile)
+  "When interactive, switch to existing buffers only"
+  (interactive
+    (list read-buffer "Switch to buffer: " (other-buffer) (null current-prefix-arg))
+  )
+)
