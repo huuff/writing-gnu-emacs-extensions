@@ -27,3 +27,30 @@
 
 ;; C-q was bound to quoted-insert, so I rebind it
 (global-set-key "\C-x\C-q" 'quoted-insert)
+
+(defun point-to-top ()
+  "Put point on top line of window"
+  (interactive)
+  (move-to-window-line 0)
+ )
+
+
+(global-set-key "\M-," 'point-to-top)
+(global-set-key "\C-x," 'tags-loop-continue)
+
+(defun point-to-bottom ()
+  "Put point at the beginning of last visible line"
+  (interactive)
+  (move-to-window-line -1)
+)
+
+(global-set-key "\M-." 'point-to-bottom)
+
+
+(defun line-to-top ()
+  "Move the current line to top of window."
+  (interactive)
+  (recenter 0)
+ )
+
+(global-set-key "\M-!" 'line-to-top)
