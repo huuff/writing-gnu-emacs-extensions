@@ -19,6 +19,9 @@
 (defun unscroll ()
   "Jump to location specified by 'unscroll-to'."
   (interactive)
-  (goto-char unscroll-to)
-  (set-window-start nil unscroll-window-start)
-  (set-window-hscroll nil unscroll-hscroll))
+  (if not unscroll-point
+    (error "Cannot unscroll yet")
+    (progn
+	(goto-char unscroll-to)
+	(set-window-start nil unscroll-window-start)
+	(set-window-hscroll nil unscroll-hscroll))))
