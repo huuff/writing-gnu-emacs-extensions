@@ -59,3 +59,10 @@
 	(goto-char unscroll-point)
 	(set-window-start nil unscroll-window-start)
 	(set-window-hscroll nil unscroll-hscroll))))
+
+;; just eval this if I want a clean slate (TODO: Does it work? check it)
+(progn
+  (advice-remove 'scroll-up 'remember-for-unscroll)
+  (advice-remove 'scroll-down 'remember-for-unscroll)
+  (advice-remove 'scroll-left 'remember-for-unscroll)
+  (advice-remove 'scroll-right 'remember-for-unscroll)) 
