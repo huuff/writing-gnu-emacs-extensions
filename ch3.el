@@ -10,7 +10,8 @@
 (defadvice scroll-up (before remember-for-unscroll
 			     activate compile)
   "Remember where we started from, for 'unscroll'."
-  (if (not (eq last-command 'scroll-up))
+  (if (not (or (eq last-command 'scroll-up)
+	       (eq last-command 'scroll-down)))
       (progn
 	(setq unscroll-point (point))
 	(setq unscroll-window-start (window-start))
@@ -19,7 +20,8 @@
 (defadvice scroll-down (before remember-for-unscroll
 			       activate compile)
   "Remember where we started from, for 'unscroll'."
-  (if (not (eq last-command 'scroll-down))
+  (if (not (or (eq last-command 'scroll-down)
+	       (eq last-command 'scroll-up)))
 	   (setq unscroll-point (point)
 		 unscroll-window-start (window-start)
 		 unscroll-hscroll (window-hscroll))))
