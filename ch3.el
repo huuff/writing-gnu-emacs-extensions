@@ -35,7 +35,7 @@
 			       activate compile)
   "Remember where we started from, for 'unscroll'"
   (if (not (or (eq last-command 'scroll-up)
-	       (eq last-command 'scroll-down)
+	       (eq last-command 'scroll-down) t
 	       (eq last-command 'scroll-left)
 	       (eq last-command 'scroll-right)
 	       (setq unscroll-point (point)
@@ -66,3 +66,31 @@
   (advice-remove 'scroll-down 'remember-for-unscroll)
   (advice-remove 'scroll-left 'remember-for-unscroll)
   (advice-remove 'scroll-right 'remember-for-unscroll)) 
+
+;; maybe remember version
+(defun unscroll-maybe-remember ()
+  (if (not (or (eq last-command 'scroll-up)
+	       (eq last-command 'scroll-down)
+	       (eq last-command 'scroll-left)
+	       (eq last-command 'scroll-right)))
+      (setq unscroll-point (point)
+	    unscroll-window-start (window-start)
+	    unscroll-hscroll (window-hscroll))))
+
+(defadvice scroll-up (before remember-for-unscroll
+			     activate compile)
+  "Remember where we started from, for 'unscroll'."
+  (unscroll-maybe-remember))
+
+(defadvice scroll-down (before remember-for-unscroll)
+  "Remember where we started from, for 'unscroll'."
+  (unscroll-maybe-remember))
+
+(defadvice scroll-left (before remember-for-unscroll
+			     activate compile)
+  "Remember where we started from, for 'unscroll'."
+  (unscroll-maybe-remember))
+
+(defadvice scroll-right (before remember-for-unscroll)
+  "Remember where we started from, for 'unscroll'."
+  (unscroll-maybe-remember))
