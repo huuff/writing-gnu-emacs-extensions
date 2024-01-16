@@ -7,6 +7,12 @@
 (defvar unscroll-hscroll nil
   "Hscroll for next call to 'unscroll'.")
 
+
+(put 'scroll-up 'unscrollable t)
+(put 'scroll-down 'unscrollable t)
+(put 'scroll-left 'unscrollable t)
+(put 'scroll-right 'unscrollable t)
+
 ;; TODO: Use modern advices instead
 
 (defun unscroll ()
@@ -21,11 +27,10 @@
 
 
 (defun unscroll-maybe-remember ()
-  (setq this-command 'unscrollable)
-  (if (not (eq last-command 'unscrollable))
+  (if (not (get last-command 'unscrollable))
   (setq unscroll-point (point)
 	unscroll-window-start (window-start)
-	unscroll-hscrolll (window-hscroll))))
+	unscroll-hscroll (window-hscroll))))
 
 (defadvice scroll-up (before remember-for-unscroll
 			     activate compile)
