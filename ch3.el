@@ -1,7 +1,7 @@
-(defvar unscroll-point nil
+(defvar unscroll-point (make-marker)
   "Text position for the next call to 'unscroll'.")
 
-(defvar unscroll-window-start nil
+(defvar unscroll-window-start (make-marker)
   "Window start for next call to 'unscroll'.")
 
 (defvar unscroll-hscroll nil
@@ -28,9 +28,10 @@
 
 (defun unscroll-maybe-remember ()
   (if (not (get last-command 'unscrollable))
-  (setq unscroll-point (point)
-	unscroll-window-start (window-start)
-	unscroll-hscroll (window-hscroll))))
+      (progn
+	(set-marker unscroll-point (point))
+	(set-marker unscroll-window-start (window-start))
+	(setq unscroll-hscroll (window-hscroll)))))
 
 (defadvice scroll-up (before remember-for-unscroll
 			     activate compile)
