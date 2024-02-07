@@ -13,9 +13,7 @@
 (put 'scroll-left 'unscrollable t)
 (put 'scroll-right 'unscrollable t)
 
-;; TODO: Use modern advices instead
-
-(defun unscroll ()
+(defun unscroll (args)
   "Jump to location specified by 'unscroll-point'."
   (interactive)
   (if (not unscroll-point)
@@ -26,7 +24,7 @@
 	(set-window-hscroll nil unscroll-hscroll))))
 
 
-(defun unscroll-maybe-remember ()
+(defun unscroll-maybe-remember (args)
   (if (not (get last-command 'unscrollable))
       (progn
 	(set-marker unscroll-point (point))
