@@ -33,25 +33,10 @@
 	(set-marker unscroll-window-start (window-start))
 	(setq unscroll-hscroll (window-hscroll)))))
 
-(defadvice scroll-up (before remember-for-unscroll
-			     activate compile)
-  "Remember where we started from, for 'unscroll'."
-  (unscroll-maybe-remember))
-
-(defadvice scroll-down (before remember-for-unscroll
-			       activate compile)
-  "Remember where we started from, for 'unscroll'."
-  (unscroll-maybe-remember))
-
-(defadvice scroll-left (before remember-for-unscroll
-			     activate compile)
-  "Remember where we started from, for 'unscroll'."
-  (unscroll-maybe-remember))
-
-(defadvice scroll-right (before remember-for-unscroll
-				activate compile)
-  "Remember where we started from, for 'unscroll'."
-  (unscroll-maybe-remember))
+(advice-add 'scroll-up :before 'unscroll-maybe-remember)
+(advice-add 'scroll-down :before 'unscroll-maybe-remember)
+(advice-add 'scroll-left :before 'unscroll-maybe-remember)
+(advice-add 'scroll-right :before 'unscroll-maybe-remember)
 
 ;; APPENDING SOME TEXT TO TEST IT
 asdasd
